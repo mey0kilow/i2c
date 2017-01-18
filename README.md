@@ -1,1 +1,1 @@
-# i2c
+Simple wrapper to the ioctl i2c interface

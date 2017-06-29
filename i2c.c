@@ -45,7 +45,7 @@ int i2c_write(i2c bus, int addr, unsigned char *buffer, int buffersize) {
 int i2c_reg_write(i2c bus, int addr, int reg, int data) {
 	unsigned char buffer[] = {reg, data};
 
-	return i2cWrite(bus, addr, buffer, 2);
+	return i2c_write(bus, addr, buffer, 2);
 }
 
 int i2c_read(i2c bus, int addr, unsigned char *buffer, int buffersize) {

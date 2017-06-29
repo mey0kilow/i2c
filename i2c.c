@@ -5,7 +5,7 @@ struct i2c_t {
 	pthread_mutex_t mutex;
 };
 
-i2c i2cOpen(const char *filename) {
+i2c i2c_open(const char *filename) {
 	i2c bus = (i2c)malloc(sizeof(struct i2c_t));
 
 	// Open I2C file
@@ -24,7 +24,7 @@ i2c i2cOpen(const char *filename) {
 	return bus;
 }
 
-int i2cWrite(i2c bus, int addr, unsigned char *buffer, int buffersize) {
+int i2c_write(i2c bus, int addr, unsigned char *buffer, int buffersize) {
 	/* Lock mutex */
 	pthread_mutex_lock(&bus->mutex);
 
@@ -42,13 +42,13 @@ int i2cWrite(i2c bus, int addr, unsigned char *buffer, int buffersize) {
 	return 0;
 }
 
-int i2cRegWrite(i2c bus, int addr, int reg, int data) {
+int i2c_reg_write(i2c bus, int addr, int reg, int data) {
 	unsigned char buffer[] = {reg, data};
 
 	return i2cWrite(bus, addr, buffer, 2);
 }
 
-int i2cRead(i2c bus, int addr, unsigned char *buffer, int buffersize) {
+int i2c_read(i2c bus, int addr, unsigned char *buffer, int buffersize) {
 	/* Lock mutex */
 	pthread_mutex_lock(&bus->mutex);
 
@@ -66,7 +66,7 @@ int i2cRead(i2c bus, int addr, unsigned char *buffer, int buffersize) {
 	return 0;
 }
 
-void i2cClose(i2c bus) {
+void i2c_close(i2c bus) {
 	pthread_mutex_destroy(&bus->mutex);
 	close(bus->fd);
 }
